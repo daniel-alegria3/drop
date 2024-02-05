@@ -126,7 +126,7 @@ main(int argc, char* argv[]) {
     source.win = XCreateSimpleWindow(source.dpy, source.root, 0, 0, 10, 10, 0, 0, 0);
     XSelectInput(source.dpy, source.win, ButtonPressMask|KeyPressMask);
 
-    XGrabButton(source.dpy, Button1, None, source.root, False, ButtonPressMask,
+    XGrabButton(source.dpy, Button3, None, source.root, False, ButtonPressMask,
                 GrabModeAsync, GrabModeAsync, None, None);
     XGrabKey(source.dpy, XKeysymToKeycode(source.dpy, XK_Escape), None, source.root,
             False, GrabModeAsync, GrabModeAsync);
@@ -150,6 +150,10 @@ main(int argc, char* argv[]) {
 
         switch (e.type) {
             case ButtonPress:
+                if ( e.xbutton.button != Button3 ) {
+                    break;
+                }
+
                 if(XGrabPointer(source.dpy, source.root, False,
                             PointerMotionMask, GrabModeAsync, GrabModeAsync,
                             None, None, CurrentTime) != GrabSuccess)
